@@ -56,7 +56,7 @@ Then, select `t2.micro` as the instance type. Once you have made the selection, 
 
 When you reach the `Review and Launch` page, click the `Launch` at the bottom-right of the page.
 
-![](./images/XXX.png)
+![](./images/review.png)
 
 Next, you should see a window appear. Create a key pair and then select `Download`. Don't lose it! You will need this file in order to connect into your server from your local PC. After you downloaded the key pair, check the box for the acknowledgement, and then click on `Launch Instances`.
 
@@ -65,7 +65,7 @@ Next, you should see a window appear. Create a key pair and then select `Downloa
 Great job! You've launched an EC2 instance! You can view your new instance by clicking the `View Instances` button at the bottom-right of your screen. 
 _Note: it may take a moment to initialize, so please be patient_!
 
-![](./images/XXX.png)
+![](./images/launchstatus.png)
 
 
 
@@ -88,7 +88,7 @@ When prompted, type the password for your local PC and press Enter on your keybo
 
 Next, go back to the AWS console for a moment, and navigate to your running EC2 instance. Copy the Public IP address, as shown in the image below:
 
-![](./images/XXX.png)
+![](./images/copyaddress.png)
 
 Now that you've copied the Public IP address, go back to Terminal. Connect to the EC2 instance by using the command below:
 
@@ -98,11 +98,11 @@ ssh -i <Your-private-key.pem> ubuntu@<EC2-Public-IP-address>
 
 Next, you will be asked if you want to continue connecting. Type `Yes` and press Enter on your keyboard.
 
-![](./images/XXX.png)
+![](./images/fingerp.png)
 
 To verify that you are connected, you should see your IP address on the top-right of the screen. Nice job! You have successfully connected to your Linux server in the Cloud environment.
 
-![](./images/XXX.png)
+![](./images/ec2connected.png)
 
 
 # Nginx Web Server
@@ -113,6 +113,7 @@ As mentioned earlier, Nginx is a powerful web server! It will enable users to vi
 ```
 $ sudo apt update
 ```
+![](./images/sudoaptupdate.png)
 
 Next, run the following command to install Nginx:
 
@@ -122,7 +123,7 @@ $ sudo apt install nginx
 
 When prompted, enter `Y` to confirm that you want to install Nginx. Your Terminal may look something like this:
 
-![](./images/XXX.png)
+![](./images/installnginx.png)
 
 Once the installation is complete, the Nginx web server should be running on your Ubuntu 20.04 server. In order to verify that nginx was successfully installed and is running as a service in Ubuntu, run the following command:
 
@@ -132,6 +133,8 @@ $ sudo systemctl status nginx
 
 If there is a green dot, then that means it's running! Nice work!
 
+![](./images/greendot.png)
+
 ## Modifying the firewall
 
 In order to receive traffic to our Web Server, it is imperative to open TCP port 80. This is the default port that web browsers utilize in order to access web pages on the Internet.
@@ -140,15 +143,15 @@ When we created the EC2 instance on the AWS console,the TCP port 22 was opened b
 
 Begin by navigating to your EC2 instance on the AWS Console. Click on the security group tab and edit the inbound rules of the running EC2 instance.
 
-![](./images/XXX.png)
+![](./images/secgroup.png)
 
 Next, click on `Edit Inbound Rules`, as highlighted in the image below:
 
-![](./images/XXX.png)
+![](./images/inboundrules.png)
 
 Next, click `Add Rule` and configure the inbound rules using HTTP as the protocol and 0.0.0.0/0 as the source, so that traffic from any IP address can enter.
 
-![](./images/XXX.png)
+![](./images/inboundrules2.png)
 
 Now let's verify whether or not we can receive traffic. On the Terminal, use the following command to send a request our Nginx on port 80.
 
@@ -158,7 +161,7 @@ $ curl http://localhost:80
 
 You should see something like this:
 
-![](./images/XXX.png)
+![](./images/curlcommand.png)
 
 Next, let's try to verify access through the web browser using the public IP address of the EC2 instance. Open a web browser of your choice and then enter the following url (remember to replace contents within the Anchor Tabs < >):
 
@@ -168,7 +171,7 @@ http://<Public-IP-Address>:80
 
 You should see the following web page. This is the Nginx default page:
 
-![](./images/XXX.png)
+![](./images/nginxwelcome.png)
 
 
 # MySQL
@@ -184,7 +187,7 @@ $ sudo apt install mysql-server
 
 When prompted, confirm that you want to proceed with the installation by typing `Y` for "Yes", and then press `Enter` on your Keyboard.
 
-![](./images/XXX.png)
+![](./images/mysqlinstall.png)
 
 Once the installation is complete, it is best practice to run a security script in order to add more security access to your database system. Use the following command:
 
@@ -199,6 +202,7 @@ Next, you must choose the level of your password validation. There are three lev
 Please choose either `0` = LOW, `1` = MEDIUM or `2` = STRONG
 
 **Please Note:**
+There are three levels of password validation policy:
 
 `LOW --- Length >= 8`
 
@@ -206,7 +210,7 @@ Please choose either `0` = LOW, `1` = MEDIUM or `2` = STRONG
 
 `STRONG --- Length >= 8, numeric, mixed case, special characters **and** dictionary file`
 
-![](./images/XXX.png)
+![](./images/3levels.png)
 
 Once you are satisfied with your password, enter it then type `Y` for “Yes” when asked if you want to continue with the password provided.
 
@@ -216,7 +220,7 @@ These security measures will remove anonymous users and the test database, disab
 
 Your Terminal should look something like this:
 
-![](./images/XXX.png)
+![](./images/typey.png)
 
 Next, you can check whether you can log in to the MySQL console by typing the following command. This command allows you to connect to the MySQL server as the administrative user (root user), which is implied by the use of 'sudo' part of the command:
 
@@ -226,16 +230,13 @@ $ sudo mysql
 
 This will connect to the MySQL server as the administrative database user **root**, which is inferred by the use of sudo when running this command. You should see the following output:
 
-![](./images/XXX.png)
+![](./images/sudomysql.png)
 
 To exit the MySQL console, use the following:
 
 ```
-mysql> exit
+$ mysql> exit
 ```
-
-![](./images/XXX.png)
-
 
 # PHP
 ## Installing PHP on your virtual environment
@@ -250,10 +251,11 @@ We can simultaneously install both of these packages. All we have to do is run t
 ```
 $ sudo apt install php-fpm php-mysql
 ```
+When prompted, type `Y` and press `Enter` to confirm installation.
 
-![](./images/XXX.png)
+![](./images/phpinstall.png)
 
-Congrats! The LAMP stack is now completely installed and fully operational.
+Congrats! PHP is now completely installed and fully operational.
 
 
 # Configuring Nginx to use the PHP Processor
@@ -307,6 +309,9 @@ server {
 
 }
 ```
+Once you have finished editing, save and close the file using `CTRL+X` and then `Y` and `ENTER` to confirm. It should look something like this:
+
+![](./images/nano.png)
 
 Here is a description of the function of each directive and location block:
 
@@ -324,10 +329,6 @@ Here is a description of the function of each directive and location block:
 
 `location ~ /.ht` — The last location block deals with `.htaccess` files, which Nginx does not process. By adding the deny all directive, if any `.htaccess` files happen to find their way into the document root, they will not be served to visitors.
 
-Once you have finished editing, save and close the file using `CTRL+X` and then `Y` and `ENTER` to confirm. It should look something like this:
-
-![](./images/XXX.png)
-
 Next, we will use a series of commands. Activate your configuration so that Nginx will use this the next time it is  reloaded:
 
 ```
@@ -341,7 +342,7 @@ $ sudo nginx -t
 ```
 You should see the following message:
 
-![](./images/XXX.png)
+![](./images/noerrors.png)
 
 Next, we must disable the default Nginx host. Use the following command:
 
@@ -355,8 +356,6 @@ Next, reload Nginx using the following command, so that the changes can be appli
 $ sudo systemctl reload nginx
 ```
 
-![](./images/XXX.png)
-
 Nice work! Now, our new website active. However, the web root `/var/www/projectLEMP` is still empty! Let's create an index.html file, so that we can test that your new server block is functioning properly. Use the following command:
 
 ```
@@ -369,7 +368,7 @@ Now that we have added an index.html file, visit your browser and access the web
 http://<Public-IP-Address>:80
 ```
 
-![](./images/XXX.png)
+![](./images/ipaddress.png)
 
 Congrats! Our LEMP stack is now fully configured!
 
@@ -389,6 +388,7 @@ Next, use the following command into the new file to get information about your 
 <?php
 phpinfo();
 ```
+![](./images/nanophp.png)
 
 Navigate to your web browser and access this page using the URL below. Remember to replace the anchor tabs provided with the public IP address:
 
@@ -398,12 +398,12 @@ http://<EC2-Public-IP-address>/info.php
 
 You should see web page like this:
 
-![](./images/XXX.png)
+![](./images/phpweb.png)
 
 Once you have viewed the web page, it is best practice to remove the file you created because it contains sensitive information about your PHP environment and your Ubuntu server. Use the following command:
 
 ```
-$ sudo rm /var/www/your_domain/info.php
+$ sudo rm /var/www/projectLEMP/info.php
 ```
 
 # Retrieving data from MySQL database with PHP
@@ -423,7 +423,6 @@ Next, create a new database using the following command:
 ```
 mysql> CREATE DATABASE `example_database`;
 ```
-![](./images/XXX.png)
 
 Great! Next, let's create an `example_user` that has full privileges on the database. The default authentication method will be `mysql_native_password`. _Please note_: for this example, the password will be `password`, however please replace this field with a more secure password.
 
@@ -437,22 +436,18 @@ Next, we will grant the user permissions over the `example_database`, while rest
 mysql> GRANT ALL ON example_database.* TO 'example_user'@'%';
 ```
 
-![](./images/XXX.png)
-
 Exit the MySQL shell using the following command:
 
 ```
 mysql> exit
 ```
+![](./images/mysqlcommands.png)
 
 Next, we can test whether the `example_user` has the permissions by logging back into to the MySQL console using the following credentials:
 
 ```
 $ mysql -u example_user -p
 ```
-
-![](./images/XXX.png)
-
 
 You may have noticed the `-p` flag in this command. This will prompt you for the password that was used when creating the example_user user.
 
@@ -462,25 +457,27 @@ Once you have logged into the MySQL console, confirm that you have access to the
 mysql> SHOW DATABASES;
 ```
 
-![](./images/XXX.png)
+![](./images/mysqlp.png)
 
 
 Great! Now let's create a test table called `todo_list`. Use the following:
 
 ```
-CREATE TABLE example_database.todo_list (
-mysql>     item_id INT AUTO_INCREMENT,
-mysql>     content VARCHAR(255),
-mysql>     PRIMARY KEY(item_id)
-mysql> );
+mysql> CREATE TABLE example_database.todo_list (
+    item_id INT AUTO_INCREMENT,
+    content VARCHAR(255),
+    PRIMARY KEY(item_id)
+);
 ```
+
+![](./images/createtable.png)
 
 Next, let's add more roles  in the test table. I suggest repeating the following command a few times using different **VALUES** each time:
 
 ```
 mysql> INSERT INTO example_database.todo_list (content) VALUES ("My first important item");
 ```
-![](./images/XXX.png)
+![](./images/todolist.png)
 
 In order to confirm whether the data was successfully saved to your table, use the following:
 
@@ -490,14 +487,12 @@ mysql>  SELECT * FROM example_database.todo_list;
 
 You should see something like this:
 
-![](./images/XXX.png)
-
-
 Once you have completed this task, exit the MySQL console:
 
 ```
 mysql> exit
 ```
+![](./images/mytodolist.png)
 
 Great! Now we have successfully created a PHP script which we can use to connect to MySQL, and then query our content. 
 
@@ -506,9 +501,6 @@ Next, let's create a new PHP file in your custom web root directory using nano:
 ```
 $ nano /var/www/projectLEMP/todo_list.php
 ```
-
-![](./images/XXX.png)
-
 
 Next, let's connect to the MySQL database and query for the content of the `todo_list` table in list format. Copy and paste the following text into the nano editor:
 
@@ -531,7 +523,8 @@ try {
     die();
 }
 ```
-![](./images/XXX.png)
+
+![](./images/nanofile.png)
 
 Once you have finished, save and close the file. You can access this page in your web browser by visiting the public IP address! Remember to replace the anchor tabs in the following URL:
 
@@ -541,7 +534,7 @@ http://<EC2-Public-IP-address>/todo_list.php
 
 You should see something like this:
 
-![](./images/XXX.png)
+![](./images/todowebsite.png)
 
 Congratulations! You have completed the web stack implementation project using LEMP stack in AWS!
 
