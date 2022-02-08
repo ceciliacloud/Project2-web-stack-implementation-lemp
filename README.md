@@ -51,15 +51,15 @@ Then, select `t2.micro` as the instance type. Once you have made the selection, 
 
 ![](./images/instancetype.png)
 
-When you reach the "Review and Launch" page, click the "Launch" at the bottom-right of the page.
+When you reach the `Review and Launch` page, click the `Launch` at the bottom-right of the page.
 
 ![](./images/XXX.png)
 
-Next, you should see a window appear. Create a key pair and then select "Download". Don't lose it! You will need this file in order to connect into your server from your local PC. After you downloaded the key pair, check the box for the acknowledgement, and then click on "Launch Instances".
+Next, you should see a window appear. Create a key pair and then select `Download`. Don't lose it! You will need this file in order to connect into your server from your local PC. After you downloaded the key pair, check the box for the acknowledgement, and then click on `Launch Instances`.
 
 ![](./images/keypair.png)
 
-Great job! You've launched an EC2 instance! You can view your new instance by clicking the "View Instances" button at the bottom-right of your screen. 
+Great job! You've launched an EC2 instance! You can view your new instance by clicking the `View Instances` button at the bottom-right of your screen. 
 _Note: it may take a moment to initialize, so please be patient_!
 
 ![](./images/XXX.png)
@@ -69,7 +69,7 @@ _Note: it may take a moment to initialize, so please be patient_!
 # Connecting to your EC2 from your local PC
 
 **PLEASE NOTE**
-**Anchor tags < >** will be used to indicate contents what must be replaced with your unique values. For example, if you have a file named "keypair123.pem" you must enter this information within the corresponding anchor tag: **<private-key-name>**
+**Anchor tags < >** will be used to indicate contents what must be replaced with your unique values. For example, if you have a file named `keypair123.pem` you must enter this information within the corresponding anchor tag: **<private-key-name>**
 
 Now let's connect to our instance!
 
@@ -105,7 +105,7 @@ To verify that you are connected, you should see your IP address on the top-righ
 # Nginx Web Server
 ## Installing Nginx on your virtual environment
 
-As mentioned earlier, Nginx is a powerful web server! It will enable users to view displayed web pages. Let's begin by using Ubuntu’s package manager: ‘apt’. This command will check for any updates for the server’s package index: 
+As mentioned earlier, Nginx is a powerful web server! It will enable users to view displayed web pages. Let's begin by using Ubuntu’s package manager: `apt`. This command will check for any updates for the server’s package index: 
 
 ```
 $ sudo apt update
@@ -139,11 +139,11 @@ Begin by navigating to your EC2 instance on the AWS Console. Click on the securi
 
 ![](./images/XXX.png)
 
-Next, click on "Edit Inbound Rules", as highlighted in the image below:
+Next, click on `Edit Inbound Rules`, as highlighted in the image below:
 
 ![](./images/XXX.png)
 
-Next, click "add rule" and configure the inbound rules using HTTP as the protocol and 0.0.0.0/0 as the source, so that traffic from any IP address can enter.
+Next, click `Add Rule` and configure the inbound rules using HTTP as the protocol and 0.0.0.0/0 as the source, so that traffic from any IP address can enter.
 
 ![](./images/XXX.png)
 
@@ -207,7 +207,7 @@ Please choose either `0` = LOW, `1` = MEDIUM or `2` = STRONG
 
 Once you are satisfied with your password, enter it then type `Y` for “Yes” when asked if you want to continue with the password provided.
 
-For the rest of the questions, type `Y` for "Yes" and press "Enter" on your keyboard at each prompt. 
+For the rest of the questions, type `Y` for "Yes" and press `Enter` on your keyboard at each prompt. 
 
 These security measures will remove anonymous users and the test database, disable remote root logins, and then reload these new rules so that the changes will be reflected on the MySQL database. 
 
@@ -257,7 +257,7 @@ Congrats! The LAMP stack is now completely installed and fully operational.
 
 Now it's time to configure Nginx to use the components we have just installed. 
 
-We cn use server blocks to yield multiple domains on a single server. On Ubuntu, Nginx already has a default server block at `/var/www/html`.Instead of modifying this block, we will create a new directory structure using `projectLEMP` as the domain name.
+We can use server blocks to yield multiple domains on a single server. On Ubuntu, Nginx already has a default server block at `/var/www/html`. Instead of modifying this block, we will create a new directory structure using `projectLEMP` as the domain name.
 
 Begin by creating the directory for `projectLEMP` using the following command:
 
@@ -308,12 +308,18 @@ server {
 Here is a description of the function of each directive and location block:
 
 `listen` — Defines what port Nginx will listen on. In this case, it will listen on port 80, the default port for HTTP.
+
 `root` — Defines the document root where the files served by this website are stored.
+
 `index` — Defines the order that Nginx will prioritize index files for this website. Generally, index.html files have a higher precedence than index.php files, to allow for quickly setting up a maintenance landing page in PHP applications. However, these settings can be adjusted.
+
 `server_name` — Defines which domain names and/or IP addresses this server block should respond for. Point this directive to your server’s domain name or public IP address.
+
 `location /` — The first location block includes a try_files directive, which checks for the existence of files or directories matching a URI request. If Nginx cannot find the appropriate resource, it will return a 404 error.
-`location ~ .php$` — This location block handles the actual PHP processing by pointing Nginx to the fastcgi-php.conf configuration file and the php7.4-fpm.sock file, which declares what socket is associated with php-fpm.
-`location ~ /.ht` — The last location block deals with .htaccess files, which Nginx does not process. By adding the deny all directive, if any .htaccess files happen to find their way into the document root ,they will not be served to visitors.
+
+`location ~ .php$` — This location block handles the actual PHP processing by pointing Nginx to the `fastcgi-php.conf` configuration file and the `php7.4-fpm.sock` file, which declares what socket is associated with `php-fpm`.
+
+`location ~ /.ht` — The last location block deals with `.htaccess` files, which Nginx does not process. By adding the deny all directive, if any `.htaccess` files happen to find their way into the document root, they will not be served to visitors.
 
 Once you have finished editing, save and close the file using `CTRL+X` and then `Y` and `ENTER` to confirm. It should look something like this:
 
@@ -384,7 +390,7 @@ phpinfo();
 Navigate to your web browser and access this page using the URL below. Remember to replace the anchor tabs provided with the public IP address:
 
 ```
-http://<server-public-IP>/info.php
+http://<EC2-Public-IP-address>/info.php
 ```
 
 You should see web page like this:
@@ -527,13 +533,12 @@ try {
 Once you have finished, save and close the file. You can access this page in your web browser by visiting the public IP address! Remember to replace the anchor tabs in the following URL:
 
 ```
-http://<server-Public-IP>/todo_list.php
+http://<EC2-Public-IP-address>/todo_list.php
 ```
 
 You should see something like this:
 
 ![](./images/XXX.png)
-
 
 Congratulations! You have completed the web stack implementation project using LEMP stack in AWS!
 
