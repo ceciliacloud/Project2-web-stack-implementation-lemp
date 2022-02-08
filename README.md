@@ -1,6 +1,8 @@
 # web-stack-implementation-lemp
 
-Hello and welcome to the Web stack **implementation using LEMP stack** project. In this project, we will be using the **LEMP** stack! You may be wondering, _what is LEMP_?
+Hello and welcome to the **Web Stack Implementation using LEMP Stack in AWS** project. 
+
+In this project, we will be using the **LEMP** stack! You may be wondering, _what is LEMP_?
 
 - `L` stands for **Linux** Operating system
 - `E` stands for **Nginx** web server (pronounced as engine-x, hence the `E` in the acronym)
@@ -17,7 +19,7 @@ Here is a brief description of each component:
 
 **PHP** is a scripting language on the server-side used for the creation of static or dynamic web sites or Web applications.
 
-Now that you know what we're using, let's get started! 
+Now that you know the components that we're using, let's get started!
 
 # Linux
 ## Setting up your virtual environment on AWS
