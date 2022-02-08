@@ -7,21 +7,22 @@ Hello and welcome to the Web stack **implementation using LEMP stack** project. 
 - `M` stands for **MySQL** database 
 - `P` stands for **PHP** scripting language.
 
-**Linux** is an operating system that manages the underlying hardware on your PC. It is an open-source software that is used worldwide. It is flexible and easy to configure.
+Here is a brief description of each component:
 
-**Nginx** is ...
+**Linux** is an operating system that manages the underlying hardware on your PC. It is an open-source software that is used worldwide and there are many distributions of it (e.g. Ubuntu, CentOS, etc). It is flexible and easy to configure.
 
-**MySQL** is ...
+**Nginx** is an HTTP proxy application that can deliver high performance by handling an increased load of HTTP requests (especially compared to Apache).
 
-**PHP** is ...
+**MySQL** is an open-source relational database management system.
 
+**PHP** is a scripting language on the server-side used for the creation of static or dynamic web sites or Web applications.
 
-Let's get started! 
+Now that you know what we're using, let's get started! 
 
 # Linux
 ## Setting up your virtual environment on AWS
 
-In order to complete this project, it is necessary to set up a virtual environment using AWS. In case you are not familiar with AWS, don't worry! It is user-friendly. I will guide you along the way!
+In order to complete this project, it is necessary to set up a virtual environment using AWS. In case you are not familiar with AWS, don't worry! It is user-friendly and I will guide you along the way!
 
 Amazon Web Services (AWS) is the leading Cloud Service Provider in the world. AWS offers a wide variety of databases and services for different types of applications. This allows users to choose the right tool for the job while receiving the best cost and performance.
 
